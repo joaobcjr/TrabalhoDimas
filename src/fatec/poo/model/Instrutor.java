@@ -24,8 +24,9 @@ public class Instrutor extends Pessoa {
         this.AreaAtuacao = AreaAtuacao;
     }
 
-    public void setTurmas(ArrayList<Turma> Turmas) {
-        this.Turmas = Turmas;
+    public void addTurmas(Turma t) {
+        this.Turmas.add(t);
+        t.setInstrutor(this);
     }
 
     public ArrayList<Turma> getTurmas() {

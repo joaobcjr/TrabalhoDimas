@@ -43,8 +43,9 @@ public class Curso {
         this.Programa = Programa;
     }
 
-    public void setTurmas(ArrayList<Turma> Turmas) {
-        this.Turmas = Turmas;
+    public void addTurmas(Turma t) {
+        this.Turmas.add(t);
+        t.setCurso(this);
     }
 
     public ArrayList<Turma> getTurmas() {
