@@ -9,6 +9,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -136,7 +139,7 @@
                       <EmptySpace min="39" pref="39" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="txtNomeAluno" min="-2" pref="385" max="-2" attributes="0"/>
-                          <Component id="ftxtCpfAluno" min="-2" pref="190" max="-2" attributes="0"/>
+                          <Component id="txtCpfAluno" min="-2" pref="190" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -153,7 +156,7 @@
                       <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="14" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="ftxtCpfAluno" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCpfAluno" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="14" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -233,10 +236,8 @@
                           <Component id="ftxtRGAluno" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="ftxtCelularAluno" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="ftxtCelularAluno" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -552,7 +553,7 @@
         <Property name="text" type="java.lang.String" value="Celular"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="ftxtCpfAluno">
+    <Component class="javax.swing.JFormattedTextField" name="txtCpfAluno">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
           <Format format="###.###.###-##" subtype="-1" type="5"/>

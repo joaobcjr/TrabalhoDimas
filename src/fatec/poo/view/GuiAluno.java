@@ -5,11 +5,19 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
+import fatec.poo.control.DaoAluno;
+import fatec.poo.model.Aluno;
+
 /**
  *
  * @author Wesley
  */
 public class GuiAluno extends javax.swing.JFrame {
+
+    private Conexao conexao;
+    private Aluno aluno;
+    private DaoAluno daoAluno = null;
 
     /**
      * Creates new form GuiAluno
@@ -57,7 +65,7 @@ public class GuiAluno extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        ftxtCpfAluno = new javax.swing.JFormattedTextField();
+        txtCpfAluno = new javax.swing.JFormattedTextField();
         btnConsultar = new javax.swing.JButton();
         txtNomeAluno = new javax.swing.JTextField();
         btnInserir = new javax.swing.JButton();
@@ -67,6 +75,11 @@ public class GuiAluno extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastrar Aluno");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         cbxEstadoCivilAluno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solteiro", "Casado", "Viúvo", "Divorciado" }));
         cbxEstadoCivilAluno.setEnabled(false);
@@ -195,7 +208,7 @@ public class GuiAluno extends javax.swing.JFrame {
         jLabel16.setText("Celular");
 
         try {
-            ftxtCpfAluno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            txtCpfAluno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -326,7 +339,7 @@ public class GuiAluno extends javax.swing.JFrame {
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNomeAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ftxtCpfAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtCpfAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
@@ -337,7 +350,7 @@ public class GuiAluno extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(ftxtCpfAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCpfAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -396,9 +409,8 @@ public class GuiAluno extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ftxtRGAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ftxtCelularAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel16)))
+                    .addComponent(ftxtCelularAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -439,8 +451,28 @@ public class GuiAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_ftxtTelResAlunoActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // TODO add your handling code here:
+      aluno = null;
+      String CPF =txtCpfAluno.getText();
+      CPF = CPF.replace(".", "");
+      CPF = CPF.replace("-", "");
+      aluno = daoAluno.consultar(CPF);
+      
+      if (aluno == null){
+         System.out.println("DEU NÂO");
+       }
+       else{
+          System.out.println("DEU CERTO");
+          
+       }    
+      
     }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("joao_junior","joao_junior");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@127.0.0.1:1521:xe");
+        daoAluno  = new DaoAluno(conexao.conectar());
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -489,7 +521,6 @@ public class GuiAluno extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxSexoAluno;
     private javax.swing.JFormattedTextField ftxtCelularAluno;
     private javax.swing.JFormattedTextField ftxtCepAluno;
-    private javax.swing.JFormattedTextField ftxtCpfAluno;
     private javax.swing.JFormattedTextField ftxtDtNascAluno;
     private javax.swing.JFormattedTextField ftxtRGAluno;
     private javax.swing.JFormattedTextField ftxtTelResAluno;
@@ -511,9 +542,12 @@ public class GuiAluno extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField txtBairroAluno;
     private javax.swing.JTextField txtCidadeAluno;
+    private javax.swing.JFormattedTextField txtCpfAluno;
     private javax.swing.JTextField txtEmailAluno;
     private javax.swing.JTextField txtEnderecoAluno;
     private javax.swing.JTextField txtNomeAluno;
     private javax.swing.JTextField txtNumEnderecoAluno;
     // End of variables declaration//GEN-END:variables
+
 }
+

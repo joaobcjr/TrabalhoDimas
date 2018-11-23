@@ -16,7 +16,7 @@ CREATE TABLE tbTurma(
   data_inicio VARCHAR2(50),
   data_termino VARCHAR2(50),
   periodo VARCHAR2(50),
-  qtde_vaga NUMBER(10),
+  qtde_vaga NUMBER(10 ),
   observacoes VARCHAR2(50)
 );
 
